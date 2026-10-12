@@ -2,8 +2,8 @@ import java.util.*;
 
 public class main {
     public static void main(String[] args){
-        Scanner obj=new Scanner(System.in);
         while(true){
+            Scanner obj=new Scanner(System.in);
             System.out.print("Input first number\n");
             int a=obj.nextInt();
             System.out.print("Input first number\n");
@@ -35,6 +35,6 @@ public class main {
             else break;
         }
 
-        obj.close();// Clean up scanner resource
+        // obj.close();// Clean up scanner resource
     }
 }
