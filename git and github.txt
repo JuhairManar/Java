@@ -1,0 +1,95 @@
+Here is a structured lesson summary formatted specifically for teaching your students.
+
+---
+
+# Lesson Summary: Git & GitHub CLI (`gh`) Workflow on Linux
+
+## Core Concept Overview
+
+* **Git:** A local command-line tool for tracking code history and file changes.
+* **GitHub:** A remote cloud service that hosts Git repositories.
+* **GitHub CLI (`gh`):** A command-line utility that allows developers to create, manage, and delete remote GitHub repositories directly from the terminal without opening a web browser.
+
+---
+
+## 1. Complete Setup & First Push (Command Sequence)
+
+Explain to students that this is the standard workflow to turn a local project folder into a tracked, published GitHub repository.
+
+```bash
+# Step 1: Authenticate with GitHub
+gh auth login
+
+# Step 2: Navigate to the project directory
+cd ~/Programming/Java
+
+# Step 3: Initialize local Git repo with default branch 'main'
+git init -b main
+
+# Step 4: Exclude compiled/binary files from tracking
+echo "*.class" > .gitignore
+
+# Step 5: Stage all files and save a local snapshot
+git add .
+git commit -m "Initial commit"
+
+# Step 6: Create GitHub repo online, set remote origin, and push code
+gh repo create Java --public --source=. --remote=origin --push
+
+```
+
+---
+
+## 2. Daily Development Cycle (Everyday Workflow)
+
+Once the initial setup is finished, teach students that they only need three commands for daily work:
+
+| Command | Purpose |
+| --- | --- |
+| **`git add .`** | Stages all modified and new files for the next snapshot. |
+| **`git commit -m "Message"`** | Saves a snapshot locally with a short explanatory note. |
+| **`git push`** | Uploads local commits to the remote GitHub repository. |
+
+---
+
+## 3. Maintenance & Repository Management
+
+Key commands for managing sessions, local tracking, and remote repositories:
+
+* **Checking Authentication Status:**
+```bash
+gh auth status
+
+```
+
+
+* **Logging Out of GitHub CLI:**
+```bash
+gh auth logout
+
+```
+
+
+* **Removing Local Git Tracking (Resetting Folder):**
+```bash
+rm -rf .git
+
+```
+
+
+*> **Teaching Note:** Explain that `rm` = remove, `-r` = recursive (folders inside folders), `-f` = force (no prompts), and `.git` is the hidden directory storing all version history. This deletes local tracking but leaves source code files untouched.*
+* **Deleting a Remote GitHub Repository from Terminal:**
+```bash
+gh repo delete <username>/<repo-name> --yes
+
+```
+
+
+
+---
+
+## 4. Key Troubleshooting Points for Students
+
+1. **Never Track Compiled Files:** In Java, `.class` files are compiled binaries. They change every build and clutter version history. Always add `*.class` to `.gitignore`.
+2. **`git push` Fails with "No configured push destination":** Occurs when a remote repository (`origin`) hasn't been linked to the local repository yet.
+3. **Snap Confinement Errors on Linux:** If `gh` installed via Snap fails due to AppArmor/permissions, uninstall the snap version (`sudo snap remove gh`) and install via the native `apt` repository.
